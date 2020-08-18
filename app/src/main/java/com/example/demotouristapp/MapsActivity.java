@@ -15,7 +15,6 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentActivity;
 
-import com.afollestad.materialdialogs.MaterialDialog;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -35,7 +34,8 @@ import java.util.List;
 import static com.example.demotouristapp.GoogleMapHelper.buildCameraUpdate;
 import static com.example.demotouristapp.GoogleMapHelper.getDefaultPolyLines;
 import static com.example.demotouristapp.GoogleMapHelper.getDottedPolylines;
-import static com.example.demotouristapp.UiHelper.showAlwaysCircularProgressDialog;
+
+//import com.afollestad.materialdialogs.MaterialDialog;
 
 //import com.afollestad.materialdialogs.MaterialDialog;
 
@@ -61,7 +61,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
   private boolean mIsText2SpeechReady = false;
   private Polyline polyline;
 
-  private MaterialDialog materialDialog;
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
@@ -223,16 +222,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
   @Override
   public void onDirectionFinderStart() {
-    if (materialDialog == null)
-      materialDialog = showAlwaysCircularProgressDialog(this, "Fetching Directions...");
-    else materialDialog.show();
+
+    Toast.makeText(this, "Fetching Directions...",Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onDirectionFinderSuccess(List<Route> routes) {
-    if (materialDialog != null && materialDialog.isShowing())
-      materialDialog.dismiss();
-    routes.clear();
 
     if (!routes.isEmpty() && polyline != null) polyline.remove();
     try {
